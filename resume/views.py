@@ -63,7 +63,7 @@ def hu_home(request):
         'skills': skills,
         'projects': projects,
         'force_en': False,
-        'profile_image_url': settings.PROFILE_IMAGE_URL,
+        'profile_image_url': getattr(settings, 'PROFILE_IMAGE_URL', ''),
     }
     response = render(request, 'home.html', context)
     response.set_cookie(settings.LANGUAGE_COOKIE_NAME, 'hu', max_age=365*24*60*60)
