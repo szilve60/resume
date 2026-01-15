@@ -38,6 +38,8 @@
     <div class="image-card">
       {% if person and person.profile_image %}
         <img src="{{ person.profile_image.url }}" alt="{{ person.full_name }}" class="profile">
+      {% elif profile_image_url %}
+        <img src="{{ profile_image_url }}" alt="{{ person.full_name|default:'Profile' }}" class="profile">
       {% else %}
         <img src="{% static 'img/profile.svg' %}" alt="Profile" class="profile">
       {% endif %}
