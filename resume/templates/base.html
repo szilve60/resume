@@ -1,0 +1,38 @@
+<!doctype html>
+{% load i18n static %}
+<html lang="{{ LANGUAGE_CODE|default:'hu' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% trans "Szilveszter Tóth — CV" %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-left">
+    <a class="brand" href="/">Szilveszter.</a>
+  </div>
+  <nav class="header-right">
+    <ul class="nav-list">
+      <li><a class="nav-item active" href="#">{% if request.LANGUAGE_CODE == 'en' or force_en %}Home{% else %}Kezdőlap{% endif %}</a></li>
+      <li><a class="nav-item" href="#about">{% if request.LANGUAGE_CODE == 'en' or force_en %}About{% else %}Rólam{% endif %}</a></li>
+      <li><a class="nav-item" href="#services">{% if request.LANGUAGE_CODE == 'en' or force_en %}Services{% else %}Szolgáltatások{% endif %}</a></li>
+      <li><a class="nav-item" href="#portfolio">{% if request.LANGUAGE_CODE == 'en' or force_en %}Portfolio{% else %}Portfólió{% endif %}</a></li>
+      <li><a class="nav-item" href="#contact">{% if request.LANGUAGE_CODE == 'en' or force_en %}Contact{% else %}Kapcsolat{% endif %}</a></li>
+    </ul>
+    <form action="{% url 'set_language' %}" method="post" class="lang-form">
+      {% csrf_token %}
+      <input name="next" type="hidden" value="{{ request.get_full_path }}">
+      <button type="submit" name="language" value="hu" class="nav-link small">HU</button>
+    </form>
+    <a href="{% url 'home_en' %}" class="nav-link small">EN</a>
+  </nav>
+</header>
+<main>
+  {% block content %}{% endblock %}
+</main>
+</body>
+</html>
