@@ -17,11 +17,11 @@
   </div>
   <nav class="header-right">
     <ul class="nav-list">
-      <li><a class="nav-item active" href="#">{% if request.LANGUAGE_CODE == 'en' or force_en %}Home{% else %}Kezdőlap{% endif %}</a></li>
-      <li><a class="nav-item" href="#about">{% if request.LANGUAGE_CODE == 'en' or force_en %}About{% else %}Rólam{% endif %}</a></li>
-      <li><a class="nav-item" href="#services">{% if request.LANGUAGE_CODE == 'en' or force_en %}Services{% else %}Szolgáltatások{% endif %}</a></li>
-      <li><a class="nav-item" href="#portfolio">{% if request.LANGUAGE_CODE == 'en' or force_en %}Portfolio{% else %}Portfólió{% endif %}</a></li>
-      <li><a class="nav-item" href="#contact">{% if request.LANGUAGE_CODE == 'en' or force_en %}Contact{% else %}Kapcsolat{% endif %}</a></li>
+      <li><a class="nav-item active" href="#">{% if force_lang == 'en' or (not force_lang and request.LANGUAGE_CODE == 'en') %}Home{% else %}Kezdőlap{% endif %}</a></li>
+      <li><a class="nav-item" href="#about">{% if force_lang == 'en' or (not force_lang and request.LANGUAGE_CODE == 'en') %}About{% else %}Rólam{% endif %}</a></li>
+      <li><a class="nav-item" href="#services">{% if force_lang == 'en' or (not force_lang and request.LANGUAGE_CODE == 'en') %}Services{% else %}Szolgáltatások{% endif %}</a></li>
+      <li><a class="nav-item" href="#portfolio">{% if force_lang == 'en' or (not force_lang and request.LANGUAGE_CODE == 'en') %}Portfolio{% else %}Portfólió{% endif %}</a></li>
+      <li><a class="nav-item" href="#contact">{% if force_lang == 'en' or (not force_lang and request.LANGUAGE_CODE == 'en') %}Contact{% else %}Kapcsolat{% endif %}</a></li>
     </ul>
     <a href="{% url 'home_hu' %}" class="nav-link small">HU</a>
     <a href="{% url 'home_en' %}" class="nav-link small">EN</a>

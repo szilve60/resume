@@ -5,7 +5,7 @@
 <section class="hero">
   <div class="hero-left">
     {% if person %}
-    {% if request.LANGUAGE_CODE == 'en' or force_en %}
+    {% if force_lang == 'en' or (not force_lang and request.LANGUAGE_CODE == 'en') %}
       <h1 class="hero-title">Hi, I'm <span class="hero-name">{{ person.full_name_en|default:person.full_name }}</span></h1>
       <h2 class="hero-role"><span class="accent">{{ person.title_en|default:person.title }}</span></h2>
     {% else %}
@@ -17,15 +17,15 @@
     <h2 class="hero-role"><span class="accent">Villamosmérnök</span></h2>
     {% endif %}
 
-    {% if request.LANGUAGE_CODE == 'en' or force_en %}
+    {% if force_lang == 'en' or (not force_lang and request.LANGUAGE_CODE == 'en') %}
       <p class="hero-copy">"Any sufficiently advanced technology is indistinguishable from magic" - Arthur C. Clarke</p>
     {% else %}
       <p class="hero-copy">"Minden eléggé fejlett technológia megkülönböztethetetlen a mágiától." - Arthur C. Clarke</p>
     {% endif %}
 
     <div class="hero-cta">
-      <a href="#contact" class="btn primary">{% if request.LANGUAGE_CODE == 'en' or force_en %}Hire Me{% else %}Keress meg{% endif %}</a>
-      <a href="#contact" class="btn outline">{% if request.LANGUAGE_CODE == 'en' or force_en %}Let's Talk{% else %}Beszéljünk{% endif %}</a>
+      <a href="#contact" class="btn primary">{% if force_lang == 'en' or (not force_lang and request.LANGUAGE_CODE == 'en') %}Hire Me{% else %}Keress meg{% endif %}</a>
+      <a href="#contact" class="btn outline">{% if force_lang == 'en' or (not force_lang and request.LANGUAGE_CODE == 'en') %}Let's Talk{% else %}Beszéljünk{% endif %}</a>
     </div>
 
     <div class="hero-socials">
@@ -51,26 +51,26 @@
     <h3 class="section-title" data-i18n="studies">{% if request.LANGUAGE_CODE == 'en' or force_en %}EDUCATION{% else %}TANULMÁNYOK{% endif %}</h3>
     {% for edu in educations %}
     <div class="item">
-      {% if request.LANGUAGE_CODE == 'en' or force_en %}
-        <h4>{{ edu.degree_en|default:edu.degree }}</h4>
-        <p>{{ edu.institution_en|default:edu.institution }}{% if edu.period_en %} — {{ edu.period_en }}{% elif edu.period %} — {{ edu.period }}{% endif %}</p>
-      {% else %}
-        <h4>{{ edu.degree }}</h4>
-        <p>{{ edu.institution }}{% if edu.period %} — {{ edu.period }}{% endif %}</p>
-      {% endif %}
+      {% if force_lang == 'en' or (not force_lang and request.LANGUAGE_CODE == 'en') %}
+          <h4>{{ edu.degree_en|default:edu.degree }}</h4>
+          <p>{{ edu.institution_en|default:edu.institution }}{% if edu.period_en %} — {{ edu.period_en }}{% elif edu.period %} — {{ edu.period }}{% endif %}</p>
+        {% else %}
+          <h4>{{ edu.degree }}</h4>
+          <p>{{ edu.institution }}{% if edu.period %} — {{ edu.period }}{% endif %}</p>
+        {% endif %}
     </div>
     {% empty %}
     <p>Nincs megadott tanulmány.</p>
     {% endfor %}
 
-    <h3 class="section-title" data-i18n="skills">{% if request.LANGUAGE_CODE == 'en' or force_en %}SKILLS{% else %}KÉSZSÉGEK{% endif %}</h3>
+    <h3 class="section-title" data-i18n="skills">{% if force_lang == 'en' or (not force_lang and request.LANGUAGE_CODE == 'en') %}SKILLS{% else %}KÉSZSÉGEK{% endif %}</h3>
     <ul>
       {% for s in skills %}
-        {% if request.LANGUAGE_CODE == 'en' or force_en %}
-          <li>{{ s.name_en|default:s.name }}{% if s.details_en %} ({{ s.details_en }}){% elif s.details %} ({{ s.details }}){% endif %}</li>
-        {% else %}
-          <li>{{ s.name }}{% if s.details %} ({{ s.details }}){% endif %}</li>
-        {% endif %}
+        {% if force_lang == 'en' or (not force_lang and request.LANGUAGE_CODE == 'en') %}
+            <li>{{ s.name_en|default:s.name }}{% if s.details_en %} ({{ s.details_en }}){% elif s.details %} ({{ s.details }}){% endif %}</li>
+          {% else %}
+            <li>{{ s.name }}{% if s.details %} ({{ s.details }}){% endif %}</li>
+          {% endif %}
       {% empty %}
         <li>Nincsenek megadott készségek.</li>
       {% endfor %}
@@ -78,10 +78,10 @@
   </div>
 
   <div class="col">
-    <h3 class="section-title" data-i18n="experience">{% if request.LANGUAGE_CODE == 'en' or force_en %}EXPERIENCE{% else %}MUNKATAPASZTALAT{% endif %}</h3>
+    <h3 class="section-title" data-i18n="experience">{% if force_lang == 'en' or (not force_lang and request.LANGUAGE_CODE == 'en') %}EXPERIENCE{% else %}MUNKATAPASZTALAT{% endif %}</h3>
     {% for ex in experiences %}
     <div class="item">
-      {% if request.LANGUAGE_CODE == 'en' or force_en %}
+      {% if force_lang == 'en' or (not force_lang and request.LANGUAGE_CODE == 'en') %}
         <h4>{{ ex.title_en|default:ex.title }}</h4>
         <p>{{ ex.company_en|default:ex.company }}{% if ex.start_date %} — {{ ex.start_date }}{% endif %}{% if ex.end_date %} - {{ ex.end_date }}{% endif %}</p>
         {% if ex.description_en %}<p>{{ ex.description_en }}</p>{% elif ex.description %}<p>{{ ex.description }}</p>{% endif %}
@@ -95,7 +95,7 @@
     <p>Nincs megadott munkatapasztalat.</p>
     {% endfor %}
 
-    <h3 class="section-title" data-i18n="other">{% if request.LANGUAGE_CODE == 'en' or force_en %}OTHER{% else %}EGYÉB{% endif %}</h3>
+    <h3 class="section-title" data-i18n="other">{% if force_lang == 'en' or (not force_lang and request.LANGUAGE_CODE == 'en') %}OTHER{% else %}EGYÉB{% endif %}</h3>
     <ul>
       {% for p in projects %}
         <li>{{ p.title }}{% if p.summary %} — {{ p.summary }}{% endif %}</li>
