@@ -43,3 +43,28 @@ def en_home(request):
     # set the django language cookie so subsequent pages remain English
     response.set_cookie(settings.LANGUAGE_COOKIE_NAME, 'en', max_age=365*24*60*60)
     return response
+
+
+def hu_home(request):
+    """Render the homepage with Hungarian language forced and set cookie.
+
+    This mirrors `en_home` but forces Hungarian and sets the language cookie
+    to 'hu' so subsequent requests remain in Hungarian.
+    """
+    person = PersonalInfo.objects.first()
+    experiences = Experience.objects.all().order_by('-id')
+    educations = Education.objects.all().order_by('-id')
+    skills = Skill.objects.all()
+    projects = Project.objects.all()
+    context = {
+        'person': person,
+        'experiences': experiences,
+        'educations': educations,
+        'skills': skills,
+        'projects': projects,
+        'force_en': False,
+        'profile_image_url': settings.PROFILE_IMAGE_URL,
+    }
+    response = render(request, 'home.html', context)
+    response.set_cookie(settings.LANGUAGE_COOKIE_NAME, 'hu', max_age=365*24*60*60)
+    return response
