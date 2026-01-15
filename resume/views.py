@@ -17,6 +17,9 @@ def home(request):
         'projects': projects,
         'force_en': False,
         'force_lang': None,
+        'lang': request.LANGUAGE_CODE,
+        'is_en': request.LANGUAGE_CODE == 'en',
+        'is_hu': request.LANGUAGE_CODE == 'hu',
     }
     return render(request, 'home.html', context)
 
@@ -40,6 +43,9 @@ def en_home(request):
         'projects': projects,
         'force_en': True,
         'force_lang': 'en',
+        'lang': 'en',
+        'is_en': True,
+        'is_hu': False,
     }
     response = render(request, 'home.html', context)
     # set the django language cookie so subsequent pages remain English
@@ -66,6 +72,9 @@ def hu_home(request):
         'projects': projects,
         'force_en': False,
         'force_lang': 'hu',
+        'lang': 'hu',
+        'is_en': False,
+        'is_hu': True,
         'profile_image_url': getattr(settings, 'PROFILE_IMAGE_URL', ''),
     }
     response = render(request, 'home.html', context)
