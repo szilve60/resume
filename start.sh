@@ -4,9 +4,6 @@ set -e
 # Run migrations
 python manage.py migrate --noinput
 
-# Collect static files
-python manage.py collectstatic --noinput
-
 # Create superuser if env vars are provided (idempotent)
 echo "[start.sh] DJANGO_SUPERUSER_USERNAME='${DJANGO_SUPERUSER_USERNAME:-<not set>}'"
 if [ -n "$DJANGO_SUPERUSER_USERNAME" ] && [ -n "$DJANGO_SUPERUSER_EMAIL" ] && [ -n "$DJANGO_SUPERUSER_PASSWORD" ]; then
