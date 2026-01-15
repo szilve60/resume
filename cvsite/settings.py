@@ -91,9 +91,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Optional override: a public URL for the profile image (e.g. hosted elsewhere)
-PROFILE_IMAGE_URL = os.environ.get('PROFILE_IMAGE_URL', '')
-
 # If DATABASE_URL is present, dj_database_url will configure DB from it
 # Ensure SECURE_PROXY_SSL_HEADER when behind a proxy/railway
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

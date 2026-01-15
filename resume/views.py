@@ -16,7 +16,6 @@ def home(request):
         'skills': skills,
         'projects': projects,
         'force_en': False,
-        'profile_image_url': settings.PROFILE_IMAGE_URL,
     }
     return render(request, 'home.html', context)
 
@@ -39,7 +38,6 @@ def en_home(request):
         'skills': skills,
         'projects': projects,
         'force_en': True,
-        'profile_image_url': settings.PROFILE_IMAGE_URL,
     }
     response = render(request, 'home.html', context)
     # set the django language cookie so subsequent pages remain English
