@@ -1,1 +1,1 @@
-web: python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn cvsite.wsgi --bind 0.0.0.0:$PORT --log-file -
+web: ./start.sh
