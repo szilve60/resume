@@ -81,22 +81,24 @@
       {% endfor %}
     </ul>
     
+    {# software skills card moved to right column #}
+  </div>
+
+  <div class="col">
     <div class="skill-card">
       <h4>{% if is_en %}Software & Programming{% else %}Szoftver- és programozási ismeretek{% endif %}</h4>
       <ul class="software-skills" style="list-style:none;padding:0;margin:0;">
         {% for s in software_skills %}
           <li class="skill-row">
-            <div class="skill-name">{{ s.name_en|default:s.name }}</div>
-            <div class="skill-bar-wrap"><div class="skill-bar" style="--target:{{ s.rating|default:3 }}0%"></div></div>
+            <div class="skill-name">{% if is_en %}{{ s.name_en|default:s.name }}{% else %}{{ s.name }}{% endif %}</div>
+            <div class="skill-bar-wrap"><div class="skill-bar" style="--target:{{ s.percent }}%"></div></div>
           </li>
         {% empty %}
           <li>{% if is_en %}No software skills defined.{% else %}Nincsenek megadott szoftverek.{% endif %}</li>
         {% endfor %}
       </ul>
     </div>
-  </div>
 
-  <div class="col">
     <h3 class="section-title" data-i18n="experience">{% if is_en %}EXPERIENCE{% else %}MUNKATAPASZTALAT{% endif %}</h3>
     {% for ex in experiences %}
     <div class="item">

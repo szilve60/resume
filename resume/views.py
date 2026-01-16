@@ -8,7 +8,17 @@ def home(request):
     experiences = Experience.objects.all().order_by('-id')
     educations = Education.objects.all().order_by('-id')
     skills = Skill.objects.all()
-    software_skills = SoftwareSkill.objects.all().order_by('-rating', 'name')
+    software_skills_qs = SoftwareSkill.objects.all().order_by('-rating', 'name')
+    software_skills = []
+    for s in software_skills_qs:
+        software_skills.append({
+            'name': s.name,
+            'name_en': s.name_en,
+            'details': s.details,
+            'details_en': s.details_en,
+            'rating': s.rating,
+            'percent': int((s.rating or 0) * 20),
+        })
     projects = Project.objects.all()
     context = {
         'person': person,
@@ -36,7 +46,17 @@ def en_home(request):
     experiences = Experience.objects.all().order_by('-id')
     educations = Education.objects.all().order_by('-id')
     skills = Skill.objects.all()
-    software_skills = SoftwareSkill.objects.all().order_by('-rating', 'name')
+    software_skills_qs = SoftwareSkill.objects.all().order_by('-rating', 'name')
+    software_skills = []
+    for s in software_skills_qs:
+        software_skills.append({
+            'name': s.name,
+            'name_en': s.name_en,
+            'details': s.details,
+            'details_en': s.details_en,
+            'rating': s.rating,
+            'percent': int((s.rating or 0) * 20),
+        })
     projects = Project.objects.all()
     context = {
         'person': person,
@@ -67,7 +87,17 @@ def hu_home(request):
     experiences = Experience.objects.all().order_by('-id')
     educations = Education.objects.all().order_by('-id')
     skills = Skill.objects.all()
-    software_skills = SoftwareSkill.objects.all().order_by('-rating', 'name')
+    software_skills_qs = SoftwareSkill.objects.all().order_by('-rating', 'name')
+    software_skills = []
+    for s in software_skills_qs:
+        software_skills.append({
+            'name': s.name,
+            'name_en': s.name_en,
+            'details': s.details,
+            'details_en': s.details_en,
+            'rating': s.rating,
+            'percent': int((s.rating or 0) * 20),
+        })
     projects = Project.objects.all()
     context = {
         'person': person,
