@@ -24,7 +24,7 @@
         </a>
       </li>
       <!-- Services and Portfolio removed as requested -->
-      <li><a class="nav-item" href="#contact">{% if is_en %}Contact{% else %}Kapcsolat{% endif %}</a></li>
+      <li><a class="nav-item" href="{% url 'contact' %}">{% if is_en %}Contact{% else %}Kapcsolat{% endif %}</a></li>
     </ul>
     <a href="{% url 'home_hu' %}" class="nav-link small">HU</a>
     <a href="{% url 'home_en' %}" class="nav-link small">EN</a>
