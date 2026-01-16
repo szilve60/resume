@@ -48,7 +48,6 @@ class Skill(models.Model):
     details = models.CharField(max_length=300, blank=True)
     details_en = models.CharField(max_length=300, blank=True)
     category = models.CharField(max_length=60, blank=True, help_text='Optional category, e.g. software, other')
-    rating = models.PositiveSmallIntegerField(default=3, validators=[MinValueValidator(1), MaxValueValidator(5)])
 
     def __str__(self):
         return self.name
