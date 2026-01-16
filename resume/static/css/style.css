@@ -79,12 +79,12 @@ main{display:block}
 
 /* Skill card styles (moved here to ensure correct loading order) */
 .skill-card {
-  background: #fff;
-  color: #111;
+  background: var(--surface);
+  color: var(--text);
   border-radius: 8px;
   padding: 16px;
-  box-shadow: 0 6px 18px rgba(18,22,26,0.06);
-  margin-top: 18px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+  margin: 0; /* align with other column content */
 }
 .skill-card h4 {
   margin: 0 0 12px 0;
@@ -104,7 +104,7 @@ main{display:block}
 }
 .skill-bar-wrap {
   flex: 1;
-  background: #eee;
+  background: rgba(255,255,255,0.06);
   border-radius: 999px;
   height: 12px;
   overflow: hidden;
