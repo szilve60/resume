@@ -54,6 +54,21 @@ class Skill(models.Model):
         return self.name
 
 
+class SoftwareSkill(models.Model):
+    name = models.CharField(max_length=200)
+    name_en = models.CharField(max_length=200, blank=True)
+    details = models.CharField(max_length=300, blank=True)
+    details_en = models.CharField(max_length=300, blank=True)
+    rating = models.PositiveSmallIntegerField(default=3, validators=[MinValueValidator(1), MaxValueValidator(5)])
+
+    class Meta:
+        verbose_name = 'Software Skill'
+        verbose_name_plural = 'Software Skills'
+
+    def __str__(self):
+        return self.name
+
+
 class Project(models.Model):
     title = models.CharField(max_length=200)
     title_en = models.CharField(max_length=200, blank=True)

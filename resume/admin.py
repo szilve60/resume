@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import PersonalInfo, Experience, Education, Skill, Project
+from .models import PersonalInfo, Experience, Education, Skill, Project, SoftwareSkill
 
 @admin.register(PersonalInfo)
 class PersonalInfoAdmin(admin.ModelAdmin):
@@ -16,6 +16,11 @@ class EducationAdmin(admin.ModelAdmin):
 @admin.register(Skill)
 class SkillAdmin(admin.ModelAdmin):
     list_display = ('name', 'details', 'category')
+
+
+@admin.register(SoftwareSkill)
+class SoftwareSkillAdmin(admin.ModelAdmin):
+    list_display = ('name', 'rating')
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):

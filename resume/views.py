@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.conf import settings
-from .models import PersonalInfo, Experience, Education, Skill, Project
+from .models import PersonalInfo, Experience, Education, Skill, Project, SoftwareSkill
 
 
 def home(request):
@@ -8,7 +8,7 @@ def home(request):
     experiences = Experience.objects.all().order_by('-id')
     educations = Education.objects.all().order_by('-id')
     skills = Skill.objects.all()
-    software_skills = skills.filter(category__iexact='software')
+    software_skills = SoftwareSkill.objects.all().order_by('-rating', 'name')
     projects = Project.objects.all()
     context = {
         'person': person,
@@ -36,7 +36,7 @@ def en_home(request):
     experiences = Experience.objects.all().order_by('-id')
     educations = Education.objects.all().order_by('-id')
     skills = Skill.objects.all()
-    software_skills = skills.filter(category__iexact='software')
+    software_skills = SoftwareSkill.objects.all().order_by('-rating', 'name')
     projects = Project.objects.all()
     context = {
         'person': person,
@@ -67,7 +67,7 @@ def hu_home(request):
     experiences = Experience.objects.all().order_by('-id')
     educations = Education.objects.all().order_by('-id')
     skills = Skill.objects.all()
-    software_skills = skills.filter(category__iexact='software')
+    software_skills = SoftwareSkill.objects.all().order_by('-rating', 'name')
     projects = Project.objects.all()
     context = {
         'person': person,
