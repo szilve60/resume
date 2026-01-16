@@ -8,12 +8,14 @@ def home(request):
     experiences = Experience.objects.all().order_by('-id')
     educations = Education.objects.all().order_by('-id')
     skills = Skill.objects.all()
+    software_skills = skills.filter(category__iexact='software')
     projects = Project.objects.all()
     context = {
         'person': person,
         'experiences': experiences,
         'educations': educations,
         'skills': skills,
+        'software_skills': software_skills,
         'projects': projects,
         'force_en': False,
         'force_lang': None,
@@ -34,12 +36,14 @@ def en_home(request):
     experiences = Experience.objects.all().order_by('-id')
     educations = Education.objects.all().order_by('-id')
     skills = Skill.objects.all()
+    software_skills = skills.filter(category__iexact='software')
     projects = Project.objects.all()
     context = {
         'person': person,
         'experiences': experiences,
         'educations': educations,
         'skills': skills,
+        'software_skills': software_skills,
         'projects': projects,
         'force_en': True,
         'force_lang': 'en',
@@ -63,12 +67,14 @@ def hu_home(request):
     experiences = Experience.objects.all().order_by('-id')
     educations = Education.objects.all().order_by('-id')
     skills = Skill.objects.all()
+    software_skills = skills.filter(category__iexact='software')
     projects = Project.objects.all()
     context = {
         'person': person,
         'experiences': experiences,
         'educations': educations,
         'skills': skills,
+        'software_skills': software_skills,
         'projects': projects,
         'force_en': False,
         'force_lang': 'hu',

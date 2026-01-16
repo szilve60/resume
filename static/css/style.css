@@ -1,0 +1,44 @@
+/* Basic skill bar styles */
+.skill-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(18,22,26,0.06);
+  margin-top: 18px;
+}
+.skill-card h4 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+}
+.skill-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.skill-name {
+  width: 180px;
+  font-size: 14px;
+  color: #222;
+}
+.skill-bar-wrap {
+  flex: 1;
+  background: #eee;
+  border-radius: 999px;
+  height: 12px;
+  overflow: hidden;
+}
+.skill-bar {
+  width: 0;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #4caf50, #2e8bdb);
+  animation: fill 900ms cubic-bezier(.2,.8,.2,1) forwards;
+}
+@keyframes fill {
+  to { width: var(--target, 40%); }
+}
+/* small responsive tweaks */
+@media (max-width: 720px) {
+  .skill-name { width: 120px; font-size: 13px; }
+}
