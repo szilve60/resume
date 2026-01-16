@@ -116,3 +116,15 @@ def hu_home(request):
     response = render(request, 'home.html', context)
     response.set_cookie(settings.LANGUAGE_COOKIE_NAME, 'hu', max_age=365*24*60*60)
     return response
+
+
+def contact(request):
+    """Simple contact page showing email/phone/linkedin from PersonalInfo."""
+    person = PersonalInfo.objects.first()
+    context = {
+        'person': person,
+        'lang': request.LANGUAGE_CODE,
+        'is_en': request.LANGUAGE_CODE == 'en',
+        'is_hu': request.LANGUAGE_CODE == 'hu',
+    }
+    return render(request, 'contact.html', context)

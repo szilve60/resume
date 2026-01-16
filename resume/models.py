@@ -9,6 +9,7 @@ class PersonalInfo(models.Model):
     title_en = models.CharField(max_length=200, blank=True)
     phone = models.CharField(max_length=50, blank=True)
     linkedin = models.CharField(max_length=200, blank=True)
+    facebook = models.CharField(max_length=200, blank=True)
     email = models.EmailField(blank=True)
     profile_image = models.ImageField(upload_to='profiles/', blank=True, null=True)
 

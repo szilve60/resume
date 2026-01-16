@@ -29,14 +29,21 @@
     {% endif %}
 
     <div class="hero-cta">
-      <a href="#contact" class="btn primary">{% if is_en %}Hire Me{% else %}Keress meg{% endif %}</a>
-      <a href="#contact" class="btn outline">{% if is_en %}Let's Talk{% else %}Beszéljünk{% endif %}</a>
+      <a href="{% url 'contact' %}" class="btn primary">{% if is_en %}Hire Me{% else %}Keress meg{% endif %}</a>
+      <a href="#about" class="btn outline">{% if is_en %}About me.{% else %}Rólam.{% endif %}</a>
     </div>
 
     <div class="hero-socials">
-      <a href="#" class="social">f</a>
-      <a href="#" class="social">t</a>
-      <a href="#" class="social">in</a>
+      {% if person and person.facebook %}
+        <a href="{{ person.facebook }}" class="social" target="_blank" rel="noopener noreferrer">f</a>
+      {% else %}
+        <a href="#" class="social">f</a>
+      {% endif %}
+      {% if person and person.linkedin %}
+        <a href="{{ person.linkedin }}" class="social" target="_blank" rel="noopener noreferrer">in</a>
+      {% else %}
+        <a href="#" class="social">in</a>
+      {% endif %}
     </div>
   </div>
   <div class="hero-right">
@@ -49,58 +56,74 @@
       <div class="image-overlay"></div>
     </div>
   </div>
-</section>
+ </section>
 
-<section id="about" class="content-grid">
+<section class="cards-section">
+  <div class="cards-inner">
+    <h2 class="cards-heading">{% if is_en %}About me.{% else %}Rólam.{% endif %}</h2>
+    <div id="about" class="content-grid">
   <div class="col">
-    <h3 class="section-title" data-i18n="studies">{% if is_en %}EDUCATION{% else %}TANULMÁNYOK{% endif %}</h3>
-    {% for edu in educations %}
-    <div class="item">
-      {% if is_en %}
-          <h4>{{ edu.degree_en|default:edu.degree }}</h4>
-          <p>{{ edu.institution_en|default:edu.institution }}{% if edu.period_en %} — {{ edu.period_en }}{% elif edu.period %} — {{ edu.period }}{% endif %}</p>
-        {% else %}
-          <h4>{{ edu.degree }}</h4>
-          <p>{{ edu.institution }}{% if edu.period %} — {{ edu.period }}{% endif %}</p>
-        {% endif %}
-    </div>
-    {% empty %}
-    <p>Nincs megadott tanulmány.</p>
-    {% endfor %}
-
-    <h3 class="section-title" data-i18n="skills">{% if is_en %}SKILLS{% else %}KÉSZSÉGEK{% endif %}</h3>
-    <ul>
-      {% for s in skills %}
+    <div class="card">
+      <h3 class="section-title" data-i18n="studies">{% if is_en %}EDUCATION{% else %}TANULMÁNYOK{% endif %}</h3>
+      {% for edu in educations %}
+      <div class="item">
         {% if is_en %}
-            <li>{{ s.name_en|default:s.name }}{% if s.details_en %} ({{ s.details_en }}){% elif s.details %} ({{ s.details }}){% endif %}</li>
+            <h4>{{ edu.degree_en|default:edu.degree }}</h4>
+            <p>{{ edu.institution_en|default:edu.institution }}{% if edu.period_en %} — {{ edu.period_en }}{% elif edu.period %} — {{ edu.period }}{% endif %}</p>
           {% else %}
-            <li>{{ s.name }}{% if s.details %} ({{ s.details }}){% endif %}</li>
+            <h4>{{ edu.degree }}</h4>
+            <p>{{ edu.institution }}{% if edu.period %} — {{ edu.period }}{% endif %}</p>
           {% endif %}
+      </div>
       {% empty %}
-        <li>Nincsenek megadott készségek.</li>
+      <p>Nincs megadott tanulmány.</p>
       {% endfor %}
-    </ul>
+
+      <h3 class="section-title" data-i18n="skills">{% if is_en %}SKILLS{% else %}KÉSZSÉGEK{% endif %}</h3>
+      <ul>
+        {% for s in skills %}
+          {% if is_en %}
+              <li>{{ s.name_en|default:s.name }}{% if s.details_en %} ({{ s.details_en }}){% elif s.details %} ({{ s.details }}){% endif %}</li>
+            {% else %}
+              <li>{{ s.name }}{% if s.details %} ({{ s.details }}){% endif %}</li>
+            {% endif %}
+        {% empty %}
+          <li>Nincsenek megadott készségek.</li>
+        {% endfor %}
+      </ul>
+    </div>
     
     {# software skills card moved to right column #}
   </div>
 
   <div class="col">
-    <h3 class="section-title" data-i18n="experience">{% if is_en %}EXPERIENCE{% else %}MUNKATAPASZTALAT{% endif %}</h3>
-    {% for ex in experiences %}
-    <div class="item">
-      {% if is_en %}
-        <h4>{{ ex.title_en|default:ex.title }}</h4>
-        <p>{{ ex.company_en|default:ex.company }}{% if ex.start_date %} — {{ ex.start_date }}{% endif %}{% if ex.end_date %} - {{ ex.end_date }}{% endif %}</p>
-        {% if ex.description_en %}<p>{{ ex.description_en }}</p>{% elif ex.description %}<p>{{ ex.description }}</p>{% endif %}
-      {% else %}
-        <h4>{{ ex.title }}</h4>
-        <p>{{ ex.company }}{% if ex.start_date %} — {{ ex.start_date }}{% endif %}{% if ex.end_date %} - {{ ex.end_date }}{% endif %}</p>
-        {% if ex.description %}<p>{{ ex.description }}</p>{% endif %}
-      {% endif %}
+    <div class="card">
+      <h3 class="section-title" data-i18n="experience">{% if is_en %}EXPERIENCE{% else %}MUNKATAPASZTALAT{% endif %}</h3>
+      {% for ex in experiences %}
+      <div class="item">
+        {% if is_en %}
+          <h4>{{ ex.title_en|default:ex.title }}</h4>
+          <p>{{ ex.company_en|default:ex.company }}{% if ex.start_date %} — {{ ex.start_date }}{% endif %}{% if ex.end_date %} - {{ ex.end_date }}{% endif %}</p>
+          {% if ex.description_en %}<p>{{ ex.description_en }}</p>{% elif ex.description %}<p>{{ ex.description }}</p>{% endif %}
+        {% else %}
+          <h4>{{ ex.title }}</h4>
+          <p>{{ ex.company }}{% if ex.start_date %} — {{ ex.start_date }}{% endif %}{% if ex.end_date %} - {{ ex.end_date }}{% endif %}</p>
+          {% if ex.description %}<p>{{ ex.description }}</p>{% endif %}
+        {% endif %}
+      </div>
+      {% empty %}
+      <p>Nincs megadott munkatapasztalat.</p>
+      {% endfor %}
+
+      <h3 class="section-title" data-i18n="other">{% if is_en %}OTHER{% else %}EGYÉB{% endif %}</h3>
+      <ul>
+        {% for p in projects %}
+          <li>{{ p.title }}{% if p.summary %} — {{ p.summary }}{% endif %}</li>
+        {% empty %}
+          <li>{% if is_en %}No additional info.{% else %}Nincs egyéb információ.{% endif %}</li>
+        {% endfor %}
+      </ul>
     </div>
-    {% empty %}
-    <p>Nincs megadott munkatapasztalat.</p>
-    {% endfor %}
   </div>
 
   <div class="col">
@@ -117,15 +140,8 @@
         {% endfor %}
       </ul>
     </div>
-
-    <h3 class="section-title" data-i18n="other">{% if is_en %}OTHER{% else %}EGYÉB{% endif %}</h3>
-    <ul>
-      {% for p in projects %}
-        <li>{{ p.title }}{% if p.summary %} — {{ p.summary }}{% endif %}</li>
-      {% empty %}
-        <li>Nincs egyéb információ.</li>
-      {% endfor %}
-    </ul>
+  </div>
+    </div>
   </div>
 </section>
 <script>

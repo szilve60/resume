@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-left">
+    <h1 class="hero-title">{% if is_en %}Contact{% else %}Kapcsolat{% endif %}</h1>
+    <div class="card">
+      {% if person %}
+        <p><strong>{% if is_en %}Email:{% else %}E-mail:{% endif %}</strong> {{ person.email }}</p>
+        <p><strong>{% if is_en %}Phone:{% else %}Telefon:{% endif %}</strong> {{ person.phone }}</p>
+        {% if person.linkedin %}
+        <p><strong>LinkedIn:</strong> <a href="{{ person.linkedin }}" target="_blank">{{ person.linkedin }}</a></p>
+        {% endif %}
+      {% else %}
+        <p>{% if is_en %}No contact info available.{% else %}Nincs elérhetőség megadva.{% endif %}</p>
+      {% endif %}
+    </div>
+    <p style="margin-top:18px;"><a href="/" class="btn outline">{% if is_en %}Back{% else %}Vissza{% endif %}</a></p>
+  </div>
+  <div class="hero-right">
+    <div class="image-card">
+      {% if person and person.profile_image %}
+        <img src="{{ person.profile_image.url }}" alt="{{ person.full_name }}" class="profile">
+      {% else %}
+        <img src="{% static 'img/profile.svg' %}" alt="Profile" class="profile">
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}
