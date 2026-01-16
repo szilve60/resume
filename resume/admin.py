@@ -15,7 +15,7 @@ class EducationAdmin(admin.ModelAdmin):
 
 @admin.register(Skill)
 class SkillAdmin(admin.ModelAdmin):
-    list_display = ('name', 'details', 'category')
+    list_display = ('name', 'category')
 
 
 @admin.register(SoftwareSkill)

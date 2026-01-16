@@ -80,17 +80,17 @@
       {% endfor %}
 
       <h3 class="section-title" data-i18n="skills">{% if is_en %}SKILLS{% else %}KÉSZSÉGEK{% endif %}</h3>
-      <ul>
-        {% for s in skills %}
-          {% if is_en %}
-              <li>{{ s.name_en|default:s.name }}{% if s.details_en %} ({{ s.details_en }}){% elif s.details %} ({{ s.details }}){% endif %}</li>
+        <ul>
+          {% for s in skills %}
+            {% if is_en %}
+              <li>{{ s.name_en|default:s.name }}</li>
             {% else %}
-              <li>{{ s.name }}{% if s.details %} ({{ s.details }}){% endif %}</li>
+              <li>{{ s.name }}</li>
             {% endif %}
-        {% empty %}
-          <li>Nincsenek megadott készségek.</li>
-        {% endfor %}
-      </ul>
+          {% empty %}
+            <li>Nincsenek megadott készségek.</li>
+          {% endfor %}
+        </ul>
     </div>
     
     {# software skills card moved to right column #}

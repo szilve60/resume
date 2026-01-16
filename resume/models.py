@@ -46,8 +46,6 @@ class Education(models.Model):
 class Skill(models.Model):
     name = models.CharField(max_length=200)
     name_en = models.CharField(max_length=200, blank=True)
-    details = models.CharField(max_length=300, blank=True)
-    details_en = models.CharField(max_length=300, blank=True)
     category = models.CharField(max_length=60, blank=True, help_text='Optional category, e.g. software, other')
 
     def __str__(self):
