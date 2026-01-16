@@ -66,8 +66,8 @@ main{display:block}
 .btn.outline{border:2px solid rgba(220,170,20,0.18);color:var(--cta);background:transparent;padding:10px 20px;border-radius:12px}
 .hero-socials{margin-top:36px;display:flex;gap:12px}
 .social{width:42px;height:42px;border-radius:999px;background:transparent;border:2px solid rgba(220,170,20,0.16);display:inline-flex;align-items:center;justify-content:center;color:var(--accent);text-decoration:none}
-.content-grid{display:flex;gap:24px;padding:28px 80px}
-.col{flex:1;background:transparent;padding:18px;border-radius:4px}
+.content-grid{display:grid;grid-template-columns:1fr 1fr 320px;gap:24px;padding:28px 80px;align-items:start}
+.col{background:transparent;padding:18px;border-radius:4px}
 .section-title{color:var(--accent);margin-top:0}
 .item{margin-bottom:14px}
 @media (max-width:800px){
@@ -80,12 +80,13 @@ main{display:block}
 /* Skill card styles (moved here to ensure correct loading order) */
 .skill-card {
   background: #fff;
+  color: #111;
   border-radius: 8px;
   padding: 16px;
   box-shadow: 0 6px 18px rgba(18,22,26,0.06);
   margin-top: 18px;
 }
-.skill-card > h4 {
+.skill-card h4 {
   margin: 0 0 12px 0;
   font-size: 16px;
   color: var(--accent);
@@ -113,7 +114,8 @@ main{display:block}
   height: 100%;
   border-radius: 999px;
   background: linear-gradient(90deg, #4caf50, #2e8bdb);
-  animation: fill 900ms cubic-bezier(.2,.8,.2,1) forwards;
+  transition: width 900ms cubic-bezier(.2,.8,.2,1);
+  will-change: width;
 }
 @keyframes fill {
   to { width: var(--target, 40%); }

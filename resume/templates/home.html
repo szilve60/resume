@@ -110,7 +110,7 @@
         {% for s in software_skills %}
           <li class="skill-row">
             <div class="skill-name">{% if is_en %}{{ s.name_en|default:s.name }}{% else %}{{ s.name }}{% endif %}</div>
-            <div class="skill-bar-wrap"><div class="skill-bar" style="--target:{{ s.percent }}%"></div></div>
+            <div class="skill-bar-wrap"><div class="skill-bar" data-percent="{{ s.percent }}%"></div></div>
           </li>
         {% empty %}
           <li>{% if is_en %}No software skills defined.{% else %}Nincsenek megadott szoftverek.{% endif %}</li>
@@ -128,4 +128,17 @@
     </ul>
   </div>
 </section>
+<script>
+  // Animate skill bars after DOM ready
+  document.addEventListener('DOMContentLoaded', function () {
+    requestAnimationFrame(function () {
+      var bars = document.querySelectorAll('.skill-bar');
+      bars.forEach(function (b, i) {
+        var pct = b.dataset.percent || '0%';
+        // stagger slightly
+        setTimeout(function () { b.style.width = pct; }, i * 80 + 50);
+      });
+    });
+  });
+</script>
 {% endblock %}
