@@ -11,11 +11,23 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'dev-secret-change-me')
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 # Allow hosts from environment or default to all for quick deploy (override in prod)
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'https://toth.szilveszter.com')
 if ALLOWED_HOSTS:
     ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS.split(',')]
 else:
     ALLOWED_HOSTS = ['*']
+
+# CSRF-trusted origins (include scheme). Can be set via env var e.g.
+# CSRF_TRUSTED_ORIGINS="https://toth.szilveszter.com,https://example.com"
+CSRF_TRUSTED_ORIGINS = [
+    o.strip() for o in os.environ.get(
+        "CSRF_TRUSTED_ORIGINS",
+        "https://toth.szilveszter.com"
+    ).split(",") if o.strip()
+]
+# When developing locally, allow the local runserver origin for convenience
+if DEBUG:
+    CSRF_TRUSTED_ORIGINS += ["http://127.0.0.1:8000"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
