@@ -1,0 +1,47 @@
+[
+  {
+    "model": "resume.preferredai",
+    "pk": 1,
+    "fields": {
+      "name": "ChatGPT",
+      "name_en": "ChatGPT",
+      "rating": 5
+    }
+  },
+  {
+    "model": "resume.preferredai",
+    "pk": 2,
+    "fields": {
+      "name": "Claude",
+      "name_en": "Claude",
+      "rating": 4
+    }
+  },
+  {
+    "model": "resume.preferredai",
+    "pk": 3,
+    "fields": {
+      "name": "Bard",
+      "name_en": "Bard",
+      "rating": 3
+    }
+  },
+  {
+    "model": "resume.preferredai",
+    "pk": 4,
+    "fields": {
+      "name": "Llama",
+      "name_en": "Llama",
+      "rating": 4
+    }
+  },
+  {
+    "model": "resume.preferredai",
+    "pk": 5,
+    "fields": {
+      "name": "Gemini",
+      "name_en": "Gemini",
+      "rating": 5
+    }
+  }
+]
