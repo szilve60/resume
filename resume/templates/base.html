@@ -59,7 +59,8 @@
     if (!hash || hash.length < 2) return false;
     var target = document.getElementById(hash.slice(1));
     if (!target) return false;
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    var prefersInstant = window.matchMedia && window.matchMedia('(max-width: 800px)').matches;
+    target.scrollIntoView({ behavior: prefersInstant ? 'auto' : 'smooth', block: 'start' });
     return true;
   }
 
