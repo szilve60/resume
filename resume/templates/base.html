@@ -54,18 +54,25 @@
   {% block content %}{% endblock %}
 </main>
 <script>
-  // Smooth-scroll for in-page anchors (improves mobile behavior)
+  // Smooth-scroll for same-page anchors (improves mobile behavior)
   document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    document.querySelectorAll('a[href*="#"]').forEach(function (link) {
       link.addEventListener('click', function (e) {
-        var targetId = this.getAttribute('href');
-        if (!targetId || targetId.length < 2) return;
-        var target = document.querySelector(targetId);
-        if (!target) return;
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        if (history.pushState) {
-          history.pushState(null, '', targetId);
+        try {
+          var url = new URL(this.href, window.location.href);
+          if (url.pathname !== window.location.pathname) return;
+          if (!url.hash || url.hash.length < 2) return;
+          var target = document.querySelector(url.hash);
+          if (!target) return;
+          e.preventDefault();
+          requestAnimationFrame(function () {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+          if (history.pushState) {
+            history.pushState(null, '', url.hash);
+          }
+        } catch (err) {
+          // allow default navigation on errors
         }
       });
     });
