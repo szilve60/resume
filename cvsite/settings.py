@@ -11,19 +11,18 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'dev-secret-change-me')
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 # Allow hosts from environment or default to all for quick deploy (override in prod)
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'https://toth.szilveszter.com', 'tothszilveszter.com')
+
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "")
 if ALLOWED_HOSTS:
-    ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS.split(',')]
+    ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS.split(",") if h.strip()]
 else:
-    ALLOWED_HOSTS = ['*']
+    ALLOWED_HOSTS = ["tothszilveszter.com", "www.tothszilveszter.com", "qdyi0hlu.up.railway.app"]
 
 # CSRF-trusted origins (include scheme). Can be set via env var e.g.
 # CSRF_TRUSTED_ORIGINS="https://toth.szilveszter.com,https://example.com"
 CSRF_TRUSTED_ORIGINS = [
-    o.strip() for o in os.environ.get(
-        "CSRF_TRUSTED_ORIGINS",
-        "https://toth.szilveszter.com"
-    ).split(",") if o.strip()
+    "https://tothszilveszter.com",
+    "https://www.tothszilveszter.com",
 ]
 # When developing locally, allow the local runserver origin for convenience
 if DEBUG:
