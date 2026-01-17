@@ -49,9 +49,9 @@
   <div class="hero-right">
     <div class="image-card">
       {% if person and person.profile_image %}
-        <img src="{{ person.profile_image.url }}" alt="{{ person.full_name }}" class="profile">
+        <img src="{{ person.profile_image.url }}" alt="{{ person.full_name }}" class="profile" onerror="this.onerror=null;this.src='{% static 'img/cvkep.jpg' %}';">
       {% else %}
-        <img src="{% static 'img/profile.svg' %}" alt="Profile" class="profile">
+        <img src="{% static 'img/cvkep.jpg' %}" alt="Profile" class="profile">
       {% endif %}
       <div class="image-overlay"></div>
     </div>
