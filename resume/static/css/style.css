@@ -162,9 +162,17 @@ main{display:block}
   background: var(--accent);
   padding: 0 0 48px 0; /* sit directly after hero spacing */
   /* make the yellow band full-bleed across the viewport */
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   width: 100vw;
-  margin-left: calc(50% - 50vw);
   box-sizing: border-box;
+}
+/* Prevent a tiny horizontal gap on small screens caused by scrollbars/viewport quirks */
+@media (max-width:900px){
+  html,body{overflow-x:hidden}
 }
 .cards-inner{
   width:100%;
