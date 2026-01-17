@@ -155,3 +155,13 @@ def contact(request):
         'is_hu': request.LANGUAGE_CODE == 'hu',
     }
     return render(request, 'contact.html', context)
+
+
+def lab(request):
+    """Interactive PLC lab page (local only)."""
+    context = {
+        'lang': request.LANGUAGE_CODE,
+        'is_en': request.LANGUAGE_CODE == 'en',
+        'is_hu': request.LANGUAGE_CODE == 'hu',
+    }
+    return render(request, 'lab.html', context)
