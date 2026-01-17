@@ -68,8 +68,15 @@
     if (window.location.hash) {
       setTimeout(function () {
         scrollToHash(window.location.hash);
-      }, 60);
+      }, 200);
     }
+
+    // Mobile browsers sometimes change the hash after navigation
+    window.addEventListener('hashchange', function () {
+      setTimeout(function () {
+        scrollToHash(window.location.hash);
+      }, 120);
+    });
 
     document.querySelectorAll('a[href*="#"]').forEach(function (link) {
       link.addEventListener('click', function (e) {
