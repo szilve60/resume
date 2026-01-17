@@ -29,6 +29,17 @@
     <a href="{% url 'home_hu' %}" class="nav-link small">HU</a>
     <a href="{% url 'home_en' %}" class="nav-link small">EN</a>
   </nav>
+
+  <!-- Mobile: links under brand -->
+  <div class="mobile-brand-links" aria-hidden="false">
+    <a class="mobile-link" href="/">{% if is_en %}Home{% else %}Kezdőlap{% endif %}</a>
+    <a class="mobile-link" href="{% if request.resolver_match.url_name == 'home' or request.resolver_match.url_name == 'home_en' or request.resolver_match.url_name == 'home_hu' %}#about{% else %}{% if is_en %}{% url 'home_en' %}{% elif is_hu %}{% url 'home_hu' %}{% else %}{% url 'home' %}{% endif %}#about{% endif %}">{% if is_en %}About{% else %}Rólam{% endif %}</a>
+    <a class="mobile-link" href="{% url 'contact' %}">{% if is_en %}Contact{% else %}Kapcsolat{% endif %}</a>
+    <div class="mobile-lang">
+      <a class="mobile-lang-link" href="{% url 'home_hu' %}">HU</a>
+      <a class="mobile-lang-link" href="{% url 'home_en' %}">EN</a>
+    </div>
+  </div>
 </header>
 <main>
   {% block content %}{% endblock %}
