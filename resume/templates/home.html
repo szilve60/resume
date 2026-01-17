@@ -118,7 +118,11 @@
       <h3 class="section-title" data-i18n="other">{% if is_en %}OTHER{% else %}EGYÉB{% endif %}</h3>
       <ul>
         {% for p in projects %}
-          <li>{{ p.title }}{% if p.summary %} — {{ p.summary }}{% endif %}</li>
+          {% if is_en %}
+            <li>{{ p.title_en|default:p.title }}{% if p.summary_en %} — {{ p.summary_en }}{% elif p.summary %} — {{ p.summary }}{% endif %}</li>
+          {% else %}
+            <li>{{ p.title }}{% if p.summary %} — {{ p.summary }}{% endif %}</li>
+          {% endif %}
         {% empty %}
           <li>{% if is_en %}No additional info.{% else %}Nincs egyéb információ.{% endif %}</li>
         {% endfor %}
