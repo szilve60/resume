@@ -76,7 +76,9 @@ main{display:block}
   .hero{flex-direction:column}
   .hero-right{width:100%;}
   .profile{width:220px;height:280px}
-  .content-grid{grid-template-columns:1fr;gap:20px;padding:18px}
+  .content-grid{grid-template-columns:1fr;gap:20px;padding:18px;justify-items:center;align-items:start}
+  .col{display:flex;flex-direction:column;align-items:center}
+  .card, .skill-card, .ai-card{width:100%;max-width:720px}
   .hero{padding:28px 18px;min-height:calc(100vh - 120px)}
   .hero-title{font-size:36px}
   .hero-name{font-size:40px}
