@@ -109,6 +109,15 @@ main{display:block}
   .mobile-link:hover{background:rgba(255,255,255,0.06)}
   .mobile-lang{display:flex;gap:8px;margin-top:6px}
   .mobile-lang-link{padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text);text-decoration:none}
+  /* hide the desktop header-right on small screens to avoid duplication */
+  .header-right{display:none}
+  /* hide original brand and use mobile brand in the first row */
+  .header-left .brand{display:none}
+  .mobile-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .mobile-row-top .mobile-top-links{display:flex;gap:10px;align-items:center}
+  .mobile-row-bottom{display:flex;align-items:center;justify-content:space-between}
+  .mobile-brand{padding:8px 12px;font-size:16px}
+  .mobile-bottom-links{display:flex;align-items:center}
 }
 
 /* Skill card styles (moved here to ensure correct loading order) */
