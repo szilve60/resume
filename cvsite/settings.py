@@ -11,7 +11,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'dev-secret-change-me')
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 # Allow hosts from environment or default to all for quick deploy (override in prod)
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'https://toth.szilveszter.com')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'https://toth.szilveszter.com', 'tothszilveszter.com')
 if ALLOWED_HOSTS:
     ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS.split(',')]
 else:
