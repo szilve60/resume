@@ -16,7 +16,7 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "")
 if ALLOWED_HOSTS:
     ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS.split(",") if h.strip()]
 else:
-    ALLOWED_HOSTS = ["tothszilveszter.com", "www.tothszilveszter.com", "qdyi0hlu.up.railway.app"]
+    ALLOWED_HOSTS = ["tothszilveszter.com", "www.tothszilveszter.com", "https://tothszilveszter.com", "qdyi0hlu.up.railway.app"]
 
 # CSRF-trusted origins (include scheme). Can be set via env var e.g.
 # CSRF_TRUSTED_ORIGINS="https://toth.szilveszter.com,https://example.com"
