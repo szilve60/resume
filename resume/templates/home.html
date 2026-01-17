@@ -140,6 +140,28 @@
         {% endfor %}
       </ul>
     </div>
+    
+    <div class="ai-card">
+      <h4>{% if is_en %}Preferred Artificial Intelligence (AI){% else %}Előnyben részesített mesterséges intelligencia (AI){% endif %}</h4>
+      <ul class="ai-list" style="list-style:none;padding:0;margin:0;">
+        {% for a in ai_skills %}
+          <li class="ai-row">
+            <div class="ai-name">{% if is_en %}{{ a.name_en|default:a.name }}{% else %}{{ a.name }}{% endif %}</div>
+            <div class="ai-rating">
+              {% for i in "12345"|make_list %}
+                {% if forloop.counter <= a.rating %}
+                  <span class="dot filled"></span>
+                {% else %}
+                  <span class="dot"></span>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </li>
+        {% empty %}
+          <li>{% if is_en %}No preferred AI listed.{% else %}Nincsenek megadott AI elemek.{% endif %}</li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
     </div>
   </div>

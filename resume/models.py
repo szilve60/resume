@@ -67,6 +67,20 @@ class SoftwareSkill(models.Model):
         return self.name
 
 
+class PreferredAI(models.Model):
+    """Preferred AI frameworks/technologies with 1-5 rating to display as dots."""
+    name = models.CharField(max_length=200)
+    name_en = models.CharField(max_length=200, blank=True)
+    rating = models.PositiveSmallIntegerField(default=3, validators=[MinValueValidator(1), MaxValueValidator(5)])
+
+    class Meta:
+        verbose_name = 'Preferred AI'
+        verbose_name_plural = 'Preferred AIs'
+
+    def __str__(self):
+        return self.name
+
+
 class Project(models.Model):
     title = models.CharField(max_length=200)
     title_en = models.CharField(max_length=200, blank=True)

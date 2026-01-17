@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import PersonalInfo, Experience, Education, Skill, Project, SoftwareSkill
+from .models import PreferredAI
 
 @admin.register(PersonalInfo)
 class PersonalInfoAdmin(admin.ModelAdmin):
@@ -20,6 +21,11 @@ class SkillAdmin(admin.ModelAdmin):
 
 @admin.register(SoftwareSkill)
 class SoftwareSkillAdmin(admin.ModelAdmin):
+    list_display = ('name', 'rating')
+
+
+@admin.register(PreferredAI)
+class PreferredAIAdmin(admin.ModelAdmin):
     list_display = ('name', 'rating')
 
 @admin.register(Project)

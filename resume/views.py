@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.conf import settings
-from .models import PersonalInfo, Experience, Education, Skill, Project, SoftwareSkill
+from .models import PersonalInfo, Experience, Education, Skill, Project, SoftwareSkill, PreferredAI
 
 
 def home(request):
@@ -20,12 +20,21 @@ def home(request):
             'percent': int((s.rating or 0) * 20),
         })
     projects = Project.objects.all()
+    ai_qs = PreferredAI.objects.all().order_by('-rating', 'name')
+    ai_skills = []
+    for a in ai_qs:
+        ai_skills.append({
+            'name': a.name,
+            'name_en': a.name_en,
+            'rating': a.rating,
+        })
     context = {
         'person': person,
         'experiences': experiences,
         'educations': educations,
         'skills': skills,
         'software_skills': software_skills,
+        'ai_skills': ai_skills,
         'projects': projects,
         'force_en': False,
         'force_lang': None,
@@ -58,12 +67,21 @@ def en_home(request):
             'percent': int((s.rating or 0) * 20),
         })
     projects = Project.objects.all()
+    ai_qs = PreferredAI.objects.all().order_by('-rating', 'name')
+    ai_skills = []
+    for a in ai_qs:
+        ai_skills.append({
+            'name': a.name,
+            'name_en': a.name_en,
+            'rating': a.rating,
+        })
     context = {
         'person': person,
         'experiences': experiences,
         'educations': educations,
         'skills': skills,
         'software_skills': software_skills,
+        'ai_skills': ai_skills,
         'projects': projects,
         'force_en': True,
         'force_lang': 'en',
@@ -99,12 +117,21 @@ def hu_home(request):
             'percent': int((s.rating or 0) * 20),
         })
     projects = Project.objects.all()
+    ai_qs = PreferredAI.objects.all().order_by('-rating', 'name')
+    ai_skills = []
+    for a in ai_qs:
+        ai_skills.append({
+            'name': a.name,
+            'name_en': a.name_en,
+            'rating': a.rating,
+        })
     context = {
         'person': person,
         'experiences': experiences,
         'educations': educations,
         'skills': skills,
         'software_skills': software_skills,
+        'ai_skills': ai_skills,
         'projects': projects,
         'force_en': False,
         'force_lang': 'hu',
