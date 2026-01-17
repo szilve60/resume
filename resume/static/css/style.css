@@ -68,7 +68,7 @@ main{display:block}
 .btn.outline{border:2px solid rgba(220,170,20,0.18);color:var(--cta);background:transparent;padding:10px 20px;border-radius:12px}
 .hero-socials{margin-top:36px;display:flex;gap:12px}
 .social{width:42px;height:42px;border-radius:999px;background:transparent;border:2px solid rgba(220,170,20,0.16);display:inline-flex;align-items:center;justify-content:center;color:var(--accent);text-decoration:none}
-.content-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px;padding:28px 48px;align-items:start;width:100%}
+.content-grid{display:grid;grid-template-columns:minmax(0,0.95fr) minmax(0,1.25fr) minmax(0,0.85fr);gap:36px;padding:28px 48px;align-items:start;width:100%}
 .col{background:transparent;padding:18px;border-radius:4px}
 .section-title{color:var(--accent);margin-top:0}
 .item{margin-bottom:14px}
