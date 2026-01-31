@@ -419,6 +419,41 @@ header, main{position:relative; z-index:1;}
   .mobile-row-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;width:100%}
   .mobile-brand{padding:6px 10px;font-size:15px;white-space:nowrap}
   .mobile-bottom-links{display:flex;align-items:center;flex-wrap:wrap}
+  .mobile-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  /* Mobile theme selector */
+  .mobile-theme-selector select {
+    background: linear-gradient(145deg, var(--surface), rgba(43, 43, 43, 0.8));
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    min-width: 100px;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23f6f3ea'%3E%3Cpath d='M6 7.5L3.5 5h5L6 7.5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 12px;
+    padding-right: 28px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all .2s ease;
+  }
+  .mobile-theme-selector select:hover {
+    border-color: var(--accent);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+  }
+  .mobile-theme-selector select:focus {
+    outline: none;
+    border-color: var(--cta);
+    box-shadow: 0 0 0 2px rgba(244, 197, 66, 0.25);
+  }
+  .mobile-theme-selector select option {
+    background: #1a1a1a;
+    color: #f6f3ea;
+    padding: 8px;
+  }
 }
 
 /* Skill card styles (moved here to ensure correct loading order) */

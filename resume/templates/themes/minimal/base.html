@@ -82,9 +82,23 @@
         <a class="mobile-link" href="{% url 'contact' %}{% if current_theme != 'minimal' %}?theme={{ current_theme }}{% endif %}">{% if is_en %}Contact{% else %}Kapcsolat{% endif %}</a>
         <a class="mobile-link secret-link" href="{% url 'lab' %}{% if current_theme != 'minimal' %}?theme={{ current_theme }}{% endif %}">{% if is_en %}Secret button{% else %}Titkos gomb{% endif %}</a>
       </div>
-      <div class="mobile-lang">
-        <a class="mobile-lang-link" href="{% url 'home_hu' %}{% if current_theme != 'minimal' %}?theme={{ current_theme }}{% endif %}">HU</a>
-        <a class="mobile-lang-link" href="{% url 'home_en' %}{% if current_theme != 'minimal' %}?theme={{ current_theme }}{% endif %}">EN</a>
+      <div class="mobile-right">
+        <!-- Mobile Theme Selector -->
+        <div class="mobile-theme-selector">
+          <select id="mobile-theme-selector" onchange="switchTheme(this.value)">
+            <option value="">{% if is_en %}Theme{% else %}Téma{% endif %}</option>
+            {% for theme in available_themes %}
+              <option value="{{ theme.slug }}" {% if current_theme == theme.slug %}selected{% endif %}>
+                {{ theme.name }}
+              </option>
+            {% endfor %}
+            <option value="reset">{% if is_en %}Reset{% else %}Reset{% endif %}</option>
+          </select>
+        </div>
+        <div class="mobile-lang">
+          <a class="mobile-lang-link" href="{% url 'home_hu' %}{% if current_theme != 'minimal' %}?theme={{ current_theme }}{% endif %}">HU</a>
+          <a class="mobile-lang-link" href="{% url 'home_en' %}{% if current_theme != 'minimal' %}?theme={{ current_theme }}{% endif %}">EN</a>
+        </div>
       </div>
     </div>
   </div>
