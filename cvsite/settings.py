@@ -16,7 +16,7 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "")
 if ALLOWED_HOSTS:
     ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS.split(",") if h.strip()]
 else:
-    ALLOWED_HOSTS = ["tothszilveszter.com", "www.tothszilveszter.com", "https://tothszilveszter.com","rwl1lcnt.up.railway.app", "qdyi0hlu.up.railway.app"]
+    ALLOWED_HOSTS = ["tothszilveszter.com", "www.tothszilveszter.com", "https://tothszilveszter.com","rwl1lcnt.up.railway.app", "qdyi0hlu.up.railway.app", "127.0.0.1", "localhost"]
 
 # CSRF-trusted origins (include scheme). Can be set via env var e.g.
 # CSRF_TRUSTED_ORIGINS="https://toth.szilveszter.com,https://example.com"
@@ -42,6 +42,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'resume.middleware.ThemeMiddleware',  # Add theme middleware
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -63,6 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'resume.context_processors.theme_context',  # Add theme context
             ],
         },
     },
@@ -95,8 +97,8 @@ STATICFILES_DIRS = [BASE_DIR / 'resume' / 'static']
 # collectstatic will target this directory on deploy
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# WhiteNoise static files compression
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# WhiteNoise static files compression (disabled for development)
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files (user uploads)
 MEDIA_URL = '/media/'

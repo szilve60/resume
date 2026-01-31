@@ -1,114 +1,13 @@
-<!doctype html>
-{% load i18n static %}
-<html lang="{{ LANGUAGE_CODE|default:'hu' }}">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>{% trans "Szilveszter Tóth — CV" %}</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta charset="utf-8">
+    <title>Theme Error</title>
 </head>
 <body>
-<header class="site-header">
-  <div class="header-left">
-    <a class="brand" href="/">Szilveszter.</a>
-  </div>
-  <nav class="header-right">
-    <ul class="nav-list">
-      <li>
-        <a class="nav-item active" href="{% if request.resolver_match.url_name == 'home' or request.resolver_match.url_name == 'home_en' or request.resolver_match.url_name == 'home_hu' %}#{% else %}{% if is_en %}{% url 'home_en' %}{% elif is_hu %}{% url 'home_hu' %}{% else %}{% url 'home' %}{% endif %}{% endif %}">
-          {% if is_en %}Home{% else %}Kezdőlap{% endif %}
-        </a>
-      </li>
-      <li>
-        <a class="nav-item" href="{% if request.resolver_match.url_name == 'home' or request.resolver_match.url_name == 'home_en' or request.resolver_match.url_name == 'home_hu' %}#about{% else %}{% if is_en %}{% url 'home_en' %}{% elif is_hu %}{% url 'home_hu' %}{% else %}{% url 'home' %}{% endif %}#about{% endif %}">
-          {% if is_en %}About{% else %}Rólam{% endif %}
-        </a>
-      </li>
-      <!-- Services and Portfolio removed as requested -->
-      <li><a class="nav-item" href="{% url 'contact' %}">{% if is_en %}Contact{% else %}Kapcsolat{% endif %}</a></li>
-      <li><a class="nav-item secret-link" href="{% url 'lab' %}">{% if is_en %}Secret button{% else %}Titkos gomb{% endif %}</a></li>
-    </ul>
-    <a href="{% url 'home_hu' %}" class="nav-link small">HU</a>
-    <a href="{% url 'home_en' %}" class="nav-link small">EN</a>
-  </nav>
-
-  <!-- Mobile: two-row links under brand -->
-  <div class="mobile-brand-links" aria-hidden="false">
-    <div class="mobile-row mobile-row-top">
-      <a class="brand mobile-brand" href="/">Szilveszter.</a>
-      <div class="mobile-top-links">
-        <a class="mobile-link" href="/">{% if is_en %}Home{% else %}Kezdőlap{% endif %}</a>
-        <a class="mobile-link" href="{% if request.resolver_match.url_name == 'home' or request.resolver_match.url_name == 'home_en' or request.resolver_match.url_name == 'home_hu' %}#about{% else %}{% if is_en %}{% url 'home_en' %}{% elif is_hu %}{% url 'home_hu' %}{% else %}{% url 'home' %}{% endif %}#about{% endif %}">{% if is_en %}About{% else %}Rólam{% endif %}</a>
-      </div>
-    </div>
-    <div class="mobile-row mobile-row-bottom">
-      <div class="mobile-bottom-links">
-        <a class="mobile-link" href="{% url 'contact' %}">{% if is_en %}Contact{% else %}Kapcsolat{% endif %}</a>
-        <a class="mobile-link secret-link" href="{% url 'lab' %}">{% if is_en %}Secret button{% else %}Titkos gomb{% endif %}</a>
-      </div>
-      <div class="mobile-lang">
-        <a class="mobile-lang-link" href="{% url 'home_hu' %}">HU</a>
-        <a class="mobile-lang-link" href="{% url 'home_en' %}">EN</a>
-      </div>
-    </div>
-  </div>
-</header>
-<main>
-  {% block content %}{% endblock %}
-</main>
-<script>
-  // Smooth-scroll for anchors (mobile-friendly)
-  function scrollToHash(hash) {
-    if (!hash || hash.length < 2) return false;
-    var target = document.getElementById(hash.slice(1));
-    if (!target) return false;
-    var prefersInstant = window.matchMedia && window.matchMedia('(max-width: 800px)').matches;
-    target.scrollIntoView({ behavior: prefersInstant ? 'auto' : 'smooth', block: 'start' });
-    return true;
-  }
-
-  document.addEventListener('DOMContentLoaded', function () {
-    // If the page loads with a hash, smooth-scroll after render
-    if (window.location.hash) {
-      setTimeout(function () {
-        scrollToHash(window.location.hash);
-      }, 200);
-    }
-
-    // Mobile browsers sometimes change the hash after navigation
-    window.addEventListener('hashchange', function () {
-      setTimeout(function () {
-        scrollToHash(window.location.hash);
-      }, 120);
-    });
-
-    document.querySelectorAll('a[href*="#"]').forEach(function (link) {
-      link.addEventListener('click', function (e) {
-        try {
-          var href = this.getAttribute('href');
-          if (!href) return;
-          var url = new URL(href, window.location.href);
-          if (!url.hash || url.hash.length < 2) return;
-
-          // Same-page hash: smooth scroll and prevent jump
-          if (url.pathname === window.location.pathname) {
-            if (scrollToHash(url.hash)) {
-              e.preventDefault();
-              if (history.pushState) {
-                history.pushState(null, '', url.hash);
-              }
-            }
-          }
-          // Different page: allow navigation, and on load it will smooth-scroll
-        } catch (err) {
-          // allow default navigation on errors
-        }
-      });
-    });
-  });
-</script>
+    <h1>Theme System Error</h1>
+    <p>This base template should never be rendered directly. The theme system should automatically select the appropriate theme template.</p>
+    <p>Current theme: {{ current_theme|default:"unknown" }}</p>
+    <p>Please report this issue to the developer.</p>
 </body>
 </html>

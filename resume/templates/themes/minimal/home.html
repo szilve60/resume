@@ -1,0 +1,186 @@
+{% extends 'themes/minimal/base.html' %}
+{% load static i18n %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-left">
+    {% if person %}
+      {% if is_en %}
+        <h1 class="hero-title">Hi, I'm <span class="hero-name">{{ person.full_name_en|default:person.full_name }}</span></h1>
+        <h2 class="hero-role"><span class="accent">{{ person.title_en|default:person.title }}</span></h2>
+      {% else %}
+        <h1 class="hero-title">Szia, <span class="hero-name">{{ person.full_name }}</span> vagyok</h1>
+        <h2 class="hero-role"><span class="accent">{{ person.title }}</span></h2>
+      {% endif %}
+    {% else %}
+      {% if is_en %}
+        <h1 class="hero-title">Hi, I'm <span class="hero-name">TÓTH SZILVESZTER</span></h1>
+        <h2 class="hero-role"><span class="accent">Electrical Engineer</span></h2>
+      {% else %}
+        <h1 class="hero-title">Hi, I'm <span class="hero-name">TÓTH SZILVESZTER</span></h1>
+        <h2 class="hero-role"><span class="accent">Villamosmérnök</span></h2>
+      {% endif %}
+    {% endif %}
+
+    {% if is_en %}
+      <p class="hero-copy">"Any sufficiently advanced technology is indistinguishable from magic" - Arthur C. Clarke</p>
+    {% else %}
+      <p class="hero-copy">"Minden eléggé fejlett technológia megkülönböztethetetlen a mágiától." - Arthur C. Clarke</p>
+    {% endif %}
+
+    <div class="hero-cta">
+      <a href="{% url 'contact' %}" class="btn primary">{% if is_en %}Hire Me{% else %}Keress meg{% endif %}</a>
+      <a href="#about" class="btn outline">{% if is_en %}About me.{% else %}Rólam.{% endif %}</a>
+    </div>
+
+    <div class="hero-socials">
+      {% if person and person.facebook %}
+        <a href="{{ person.facebook }}" class="social" target="_blank" rel="noopener noreferrer">f</a>
+      {% else %}
+        <a href="#" class="social">f</a>
+      {% endif %}
+      {% if person and person.linkedin %}
+        <a href="{{ person.linkedin }}" class="social" target="_blank" rel="noopener noreferrer">in</a>
+      {% else %}
+        <a href="#" class="social">in</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="image-card">
+      {% if person and person.profile_image %}
+        <img src="{{ person.profile_image.url }}" alt="{{ person.full_name }}" class="profile" onerror="this.onerror=null;this.src='{% static 'img/cvkep.jpg' %}';">
+      {% else %}
+        <img src="{% static 'img/cvkep.jpg' %}" alt="Profile" class="profile">
+      {% endif %}
+      <div class="image-overlay"></div>
+    </div>
+  </div>
+ </section>
+
+<section class="cards-section" id="about">
+  <div class="cards-inner">
+    <h2 class="cards-heading">{% if is_en %}About me.{% else %}Rólam.{% endif %}</h2>
+    <div class="content-grid">
+  <div class="col">
+    <div class="card">
+      <h3 class="section-title" data-i18n="studies">{% if is_en %}EDUCATION{% else %}TANULMÁNYOK{% endif %}</h3>
+      {% for edu in educations %}
+      <div class="item">
+        {% if is_en %}
+            <h4>{{ edu.degree_en|default:edu.degree }}</h4>
+            <p>{{ edu.institution_en|default:edu.institution }}{% if edu.period_en %} — {{ edu.period_en }}{% elif edu.period %} — {{ edu.period }}{% endif %}</p>
+          {% else %}
+            <h4>{{ edu.degree }}</h4>
+            <p>{{ edu.institution }}{% if edu.period %} — {{ edu.period }}{% endif %}</p>
+          {% endif %}
+      </div>
+      {% empty %}
+      <p>Nincs megadott tanulmány.</p>
+      {% endfor %}
+
+      <h3 class="section-title" data-i18n="skills">{% if is_en %}SKILLS{% else %}KÉSZSÉGEK{% endif %}</h3>
+        <ul>
+          {% for s in skills %}
+            {% if is_en %}
+              <li>{{ s.name_en|default:s.name }}</li>
+            {% else %}
+              <li>{{ s.name }}</li>
+            {% endif %}
+          {% empty %}
+            <li>Nincsenek megadott készségek.</li>
+          {% endfor %}
+        </ul>
+    </div>
+    
+    {# software skills card moved to right column #}
+  </div>
+
+  <div class="col">
+    <div class="card">
+      <h3 class="section-title" data-i18n="experience">{% if is_en %}EXPERIENCE{% else %}MUNKATAPASZTALAT{% endif %}</h3>
+      {% for ex in experiences %}
+      <div class="item">
+        {% if is_en %}
+          <h4>{{ ex.title_en|default:ex.title }}</h4>
+          <p>{{ ex.company_en|default:ex.company }}{% if ex.start_date %} — {{ ex.start_date }}{% endif %}{% if ex.end_date %} - {{ ex.end_date }}{% endif %}</p>
+          {% if ex.description_en %}<p>{{ ex.description_en }}</p>{% elif ex.description %}<p>{{ ex.description }}</p>{% endif %}
+        {% else %}
+          <h4>{{ ex.title }}</h4>
+          <p>{{ ex.company }}{% if ex.start_date %} — {{ ex.start_date }}{% endif %}{% if ex.end_date %} - {{ ex.end_date }}{% endif %}</p>
+          {% if ex.description %}<p>{{ ex.description }}</p>{% endif %}
+        {% endif %}
+      </div>
+      {% empty %}
+      <p>Nincs megadott munkatapasztalat.</p>
+      {% endfor %}
+
+      <h3 class="section-title" data-i18n="other">{% if is_en %}OTHER{% else %}EGYÉB{% endif %}</h3>
+      <ul>
+        {% for p in projects %}
+          {% if is_en %}
+            <li>{{ p.title_en|default:p.title }}{% if p.summary_en %} — {{ p.summary_en }}{% elif p.summary %} — {{ p.summary }}{% endif %}</li>
+          {% else %}
+            <li>{{ p.title }}{% if p.summary %} — {{ p.summary }}{% endif %}</li>
+          {% endif %}
+        {% empty %}
+          <li>{% if is_en %}No additional info.{% else %}Nincs egyéb információ.{% endif %}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="skill-card">
+      <h4>{% if is_en %}Software & Programming{% else %}Szoftver- és programozási ismeretek{% endif %}</h4>
+      <ul class="software-skills" style="list-style:none;padding:0;margin:0;">
+        {% for s in software_skills %}
+          <li class="skill-row">
+            <div class="skill-name">{% if is_en %}{{ s.name_en|default:s.name }}{% else %}{{ s.name }}{% endif %}</div>
+            <div class="skill-bar-wrap"><div class="skill-bar" data-percent="{{ s.percent }}%"></div></div>
+          </li>
+        {% empty %}
+          <li>{% if is_en %}No software skills defined.{% else %}Nincsenek megadott szoftverek.{% endif %}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    
+    <div class="ai-card">
+      <h4>{% if is_en %}Preferred Artificial Intelligence (AI){% else %}Előnyben részesített mesterséges intelligencia (AI){% endif %}</h4>
+      <ul class="ai-list" style="list-style:none;padding:0;margin:0;">
+        {% for a in ai_skills %}
+          <li class="ai-row">
+            <div class="ai-name">{% if is_en %}{{ a.name_en|default:a.name }}{% else %}{{ a.name }}{% endif %}</div>
+            <div class="ai-rating">
+              {% for i in "12345"|make_list %}
+                {% if forloop.counter <= a.rating %}
+                  <span class="dot filled"></span>
+                {% else %}
+                  <span class="dot"></span>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </li>
+        {% empty %}
+          <li>{% if is_en %}No preferred AI listed.{% else %}Nincsenek megadott AI elemek.{% endif %}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+    </div>
+  </div>
+</section>
+<script>
+  // Animate skill bars after DOM ready
+  document.addEventListener('DOMContentLoaded', function () {
+    requestAnimationFrame(function () {
+      var bars = document.querySelectorAll('.skill-bar');
+      bars.forEach(function (b, i) {
+        var pct = b.dataset.percent || '0%';
+        // stagger slightly
+        setTimeout(function () { b.style.width = pct; }, i * 80 + 50);
+      });
+    });
+  });
+</script>
+{% endblock %}

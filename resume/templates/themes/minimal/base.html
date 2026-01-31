@@ -1,0 +1,211 @@
+<!doctype html>
+{% load i18n static %}
+<html lang="{{ LANGUAGE_CODE|default:'hu' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MINIMAL THEME - {% trans "Szilveszter Tóth — CV" %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <style>
+    /* Minimal Theme - Original Style (Default) */
+    /* No overrides needed - uses original CSS variables */
+    
+    /* Debug indicator */
+    body::before {
+      content: "MINIMAL THEME ACTIVE";
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      background: var(--accent);
+      color: var(--bg);
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      z-index: 9999;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-left">
+    <a class="brand" href="/">Szilveszter.</a>
+  </div>
+  <nav class="header-right">
+    <ul class="nav-list">
+      <li>
+        <a class="nav-item active" href="{% if request.resolver_match.url_name == 'home' or request.resolver_match.url_name == 'home_en' or request.resolver_match.url_name == 'home_hu' %}#{% else %}{% if is_en %}{% url 'home_en' %}{% elif is_hu %}{% url 'home_hu' %}{% else %}{% url 'home' %}{% endif %}{% endif %}">
+          {% if is_en %}Home{% else %}Kezdőlap{% endif %}
+        </a>
+      </li>
+      <li>
+        <a class="nav-item" href="{% if request.resolver_match.url_name == 'home' or request.resolver_match.url_name == 'home_en' or request.resolver_match.url_name == 'home_hu' %}#about{% else %}{% if is_en %}{% url 'home_en' %}{% elif is_hu %}{% url 'home_hu' %}{% else %}{% url 'home' %}{% endif %}#about{% endif %}">
+          {% if is_en %}About{% else %}Rólam{% endif %}
+        </a>
+      </li>
+      <!-- Services and Portfolio removed as requested -->
+      <li><a class="nav-item" href="{% url 'contact' %}{% if current_theme != 'minimal' %}?theme={{ current_theme }}{% endif %}">{% if is_en %}Contact{% else %}Kapcsolat{% endif %}</a></li>
+      <li><a class="nav-item secret-link" href="{% url 'lab' %}{% if current_theme != 'minimal' %}?theme={{ current_theme }}{% endif %}">{% if is_en %}Secret button{% else %}Titkos gomb{% endif %}</a></li>
+    </ul>
+    
+    <!-- Theme Selector Dropdown -->
+    <div class="theme-selector">
+      <select id="theme-selector" onchange="switchTheme(this.value)">
+        <option value="">{% if is_en %}Choose Theme{% else %}Téma választás{% endif %}</option>
+        {% for theme in available_themes %}
+          <option value="{{ theme.slug }}" {% if current_theme == theme.slug %}selected{% endif %}>
+            {{ theme.name }}
+          </option>
+        {% endfor %}
+        <option value="reset">{% if is_en %}Reset to Default{% else %}Alapértelmezett{% endif %}</option>
+      </select>
+    </div>
+    
+    <a href="{% url 'home_hu' %}{% if current_theme != 'minimal' %}?theme={{ current_theme }}{% endif %}" class="nav-link small">HU</a>
+    <a href="{% url 'home_en' %}{% if current_theme != 'minimal' %}?theme={{ current_theme }}{% endif %}" class="nav-link small">EN</a>
+  </nav>
+
+  <!-- Mobile: two-row links under brand -->
+  <div class="mobile-brand-links" aria-hidden="false">
+    <div class="mobile-row mobile-row-top">
+      <a class="brand mobile-brand" href="/">Szilveszter.</a>
+      <div class="mobile-top-links">
+        <a class="mobile-link" href="/">{% if is_en %}Home{% else %}Kezdőlap{% endif %}</a>
+        <a class="mobile-link" href="{% if request.resolver_match.url_name == 'home' or request.resolver_match.url_name == 'home_en' or request.resolver_match.url_name == 'home_hu' %}#about{% else %}{% if is_en %}{% url 'home_en' %}{% elif is_hu %}{% url 'home_hu' %}{% else %}{% url 'home' %}{% endif %}#about{% endif %}">{% if is_en %}About{% else %}Rólam{% endif %}</a>
+      </div>
+    </div>
+    <div class="mobile-row mobile-row-bottom">
+      <div class="mobile-bottom-links">
+        <a class="mobile-link" href="{% url 'contact' %}{% if current_theme != 'minimal' %}?theme={{ current_theme }}{% endif %}">{% if is_en %}Contact{% else %}Kapcsolat{% endif %}</a>
+        <a class="mobile-link secret-link" href="{% url 'lab' %}{% if current_theme != 'minimal' %}?theme={{ current_theme }}{% endif %}">{% if is_en %}Secret button{% else %}Titkos gomb{% endif %}</a>
+      </div>
+      <div class="mobile-lang">
+        <a class="mobile-lang-link" href="{% url 'home_hu' %}{% if current_theme != 'minimal' %}?theme={{ current_theme }}{% endif %}">HU</a>
+        <a class="mobile-lang-link" href="{% url 'home_en' %}{% if current_theme != 'minimal' %}?theme={{ current_theme }}{% endif %}">EN</a>
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+  {% block content %}{% endblock %}
+</main>
+{% csrf_token %}
+<script>
+  // Theme switching functionality
+  function switchTheme(themeName) {
+    console.log('Switching to theme:', themeName);
+    
+    if (!themeName || themeName === '') {
+      console.log('Empty theme selected, ignoring');
+      return;
+    }
+    
+    if (themeName === 'reset') {
+      console.log('Clearing theme...');
+      fetch('{% url "clear_theme" %}', {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': '{{ csrf_token }}',
+        }
+      }).then(response => {
+        console.log('Clear theme response status:', response.status);
+        if (!response.ok) {
+          throw new Error('Clear theme failed');
+        }
+        return response.json();
+      }).then(data => {
+        console.log('Clear theme data:', data);
+        setTimeout(() => {
+          // Remove theme parameter from URL
+          const url = new URL(window.location);
+          url.searchParams.delete('theme');
+          window.location.href = url.toString();
+        }, 100);
+      }).catch(error => {
+        console.error('Clear theme error:', error);
+      });
+    } else {
+      console.log('Setting theme to:', themeName);
+      fetch('{% url "set_theme" %}', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-CSRFToken': '{{ csrf_token }}',
+        },
+        body: 'theme=' + encodeURIComponent(themeName)
+      }).then(response => {
+        console.log('Set theme response status:', response.status);
+        if (!response.ok) {
+          throw new Error('Set theme failed');
+        }
+        return response.json();
+      }).then(data => {
+        console.log('Set theme data:', data);
+        setTimeout(() => {
+          // Add theme parameter to URL
+          const url = new URL(window.location);
+          url.searchParams.set('theme', themeName);
+          window.location.href = url.toString();
+        }, 100);
+      }).catch(error => {
+        console.error('Set theme error:', error);
+      });
+    }
+  }
+
+  // Smooth-scroll for anchors (mobile-friendly)
+  function scrollToHash(hash) {
+    if (!hash || hash.length < 2) return false;
+    var target = document.getElementById(hash.slice(1));
+    if (!target) return false;
+    var prefersInstant = window.matchMedia && window.matchMedia('(max-width: 800px)').matches;
+    target.scrollIntoView({ behavior: prefersInstant ? 'auto' : 'smooth', block: 'start' });
+    return true;
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // If the page loads with a hash, smooth-scroll after render
+    if (window.location.hash) {
+      setTimeout(function () {
+        scrollToHash(window.location.hash);
+      }, 200);
+    }
+
+    // Mobile browsers sometimes change the hash after navigation
+    window.addEventListener('hashchange', function () {
+      setTimeout(function () {
+        scrollToHash(window.location.hash);
+      }, 120);
+    });
+
+    document.querySelectorAll('a[href*="#"]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        try {
+          var href = this.getAttribute('href');
+          if (!href) return;
+          var url = new URL(href, window.location.href);
+          if (!url.hash || url.hash.length < 2) return;
+
+          // Same-page hash: smooth scroll and prevent jump
+          if (url.pathname === window.location.pathname) {
+            if (scrollToHash(url.hash)) {
+              e.preventDefault();
+              if (history.pushState) {
+                history.pushState(null, '', url.hash);
+              }
+            }
+          }
+          // Different page: allow navigation, and on load it will smooth-scroll
+        } catch (err) {
+          // allow default navigation on errors
+        }
+      });
+    });
+  });
+</script>
+{% csrf_token %}
+</body>
+</html>

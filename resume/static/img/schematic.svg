@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="none">
+  <style>
+    svg{pointer-events:none;}
+    .led{pointer-events:all;}
+    .led-active{
+      fill:#f4c542;
+      stroke:#f4c542;
+      filter: drop-shadow(0 0 6px rgba(244,197,66,0.8));
+    }
+  </style>
+  <defs>
+    <linearGradient id="trace" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b3b3b" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#2c2c2c" stop-opacity="0.4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Traces -->
+  <g stroke="url(#trace)" stroke-width="2" fill="none" opacity="0.8">
+    <path d="M120 120 H420 V220 H620"/>
+    <path d="M240 260 H520 V360 H780"/>
+    <path d="M100 420 H380 V540 H680"/>
+    <path d="M820 140 H1100 V220 H1400"/>
+    <path d="M720 360 H980 V420 H1260"/>
+    <path d="M840 520 H1140 V600 H1500"/>
+    <path d="M220 680 H560 V760 H960"/>
+    <path d="M1040 700 H1280 V780 H1520"/>
+  </g>
+
+  <!-- Components / pads -->
+  <g stroke="#4a4a4a" stroke-width="2" fill="none" opacity="0.6">
+    <rect x="440" y="200" width="140" height="60" rx="8"/>
+    <rect x="900" y="200" width="160" height="70" rx="8"/>
+    <rect x="540" y="520" width="180" height="70" rx="8"/>
+    <rect x="1080" y="520" width="200" height="80" rx="8"/>
+  </g>
+
+  <!-- LED nodes (hover targets) -->
+  <g class="led-nodes" fill="#2a2a2a" stroke="#555" stroke-width="2" opacity="0.9">
+    <circle class="led" cx="620" cy="220" r="10"/>
+    <circle class="led" cx="780" cy="360" r="10"/>
+    <circle class="led" cx="680" cy="540" r="10"/>
+    <circle class="led" cx="1400" cy="220" r="10"/>
+    <circle class="led" cx="1260" cy="420" r="10"/>
+    <circle class="led" cx="1500" cy="600" r="10"/>
+    <circle class="led" cx="960" cy="760" r="10"/>
+    <circle class="led" cx="1520" cy="780" r="10"/>
+    <circle class="led" cx="420" cy="120" r="10"/>
+    <circle class="led" cx="240" cy="260" r="10"/>
+  </g>
+</svg>
